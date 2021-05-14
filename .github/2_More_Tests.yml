@@ -1,0 +1,25 @@
+name: More Tests
+
+on:
+  workflow_run:
+    workflows:
+      - "Validate PR"
+    types: [ completed ]
+
+jobs:
+    on-success:
+      runs-on: ubuntu-latest
+      if: ${{ github.event.workflow_run.conclusion == 'success' }}
+      steps:
+        - name: run unit tests
+          run: |
+            echo 'previous workflows ok'
+            echo On Branch ${{ github.base_ref }}
+
+    on-failure:
+      runs-on: ubuntu-latest
+      if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+      steps:
+        - run: |
+            echo 'previous workflows failed, skipping unit test run'
+            echo On Branch ${{ github.base_ref }}

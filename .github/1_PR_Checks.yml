@@ -1,0 +1,34 @@
+name: Validate PR
+
+on:
+
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  PR_Checks:
+    runs-on: ubuntu-latest
+    name: PR Validations
+
+    steps:
+      - name: PR Status
+        run:  |
+          echo "Test"
+          echo On Branch ${{ github.base_ref }}
+      - name: PR Reviews
+        run:  echo "Test"
+      - name: PR Description
+        run:  echo "Test"
+
+  Code_Checks:
+    runs-on: ubuntu-latest
+    name: Code Validations
+    needs: PR_Checks
+
+    steps:
+      - name: References
+        run:  echo "Test"
+      - name: Unit Tests
+        run:  echo "Test"
+      - name: Unit Test Coverage
+        run:  echo "Test"
